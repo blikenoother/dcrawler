@@ -30,7 +30,7 @@
         "request": "2.45.0",
         "cheerio": "0.17.0",
         "lodash": "2.4.1",
-        "mongodb": "*"
+        "mongodb": "1.4.19"
     },
     "engines": [
         "node>=0.8.x"
