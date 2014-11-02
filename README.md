@@ -3,7 +3,7 @@ node-distributed-crawler
 
 Features:
  * Configurable url parser and data parser
- * jQuery selector using [cheerio](httphttps://github.com/cheeriojs/cheerio)
+ * jQuery selector using [cheerio](https://github.com/cheeriojs/cheerio)
  * Parsed data insertion in [Mongodb](https://github.com/mongodb/node-mongodb-native) collection
  * Domain wise interval configuration in distributed enviroment
  * node 0.8+ support
@@ -27,9 +27,8 @@ var DCrawler = require("dcrawler");
 
 var dc = new DCrawler({
     mongodbUri:     "mongodb://localhost:27017/crawler",
-    profilePath:     __dirname + "/" + "profile"
+    profilePath:     __dirname + "/" + "sample_profile"
 });
-
 // start crawling
 dc.start();
 ```
