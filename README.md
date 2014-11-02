@@ -26,7 +26,7 @@ Usage
 var DCrawler = require("dcrawler");
 
 var dc = new DCrawler({
-    mongodbUri:     "mongodb://localhost:27017/crawler",
+    mongodbUri:     "mongodb://[IP]:27017/crawler",
     profilePath:     __dirname + "/" + "sample_profile"
 });
 // start crawling
