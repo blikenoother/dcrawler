@@ -54,6 +54,7 @@ The DCrawler takes options and log options construcotr:
 
 Create __config file__ for each domain inside profilePath directory. Check example profile [example.com](https://github.com/blikenoother/dcrawler/blob/master/sample_profile/example.js), contains config with following porperties:
 * __collection:__ Name on collection to store parsed data in mongodb. (Eg: 'products') __*__
+* __url:__ Url to start crawling. String or Array of url. (Eg: 'http://example.com' or ['http://example.com']) __*__
 * __interval:__ Interval between request in miliseconds. Default is `1000` (Eg: For 2 secods interval: `2000`)
 * __followUrl:__ Boolean, true or false to fetch further url from the crawled page and crawl that url as well.
 * __resume:__ Boolean, true or false to resume crawling from previous crawled data.
