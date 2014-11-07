@@ -27,11 +27,11 @@ Usage
 var DCrawler = require("dcrawler");
 
 var options = {
-    mongodbUri:     "mongodb://localhost:27017/crawler",
+    mongodbUri:     "mongodb://0.0.0.0:27017/crawler",
     profilePath:    __dirname + "/" + "profile"
 };
 var logOptions = {
-    dbUri:      "mongodb://localhost:27017/crawler",
+    dbUri:      "mongodb://0.0.0.0:27017/crawler",
 	storeHost:  true
 }
 var dc = new DCrawler(options, logOptions);
