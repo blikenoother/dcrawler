@@ -16,7 +16,7 @@ Feature suggestion & Forks welcomed!
 Installation
 --------------
 
-    $ npm install git+https://github.com/blikenoother/dcrawler.git
+    $ npm install dcrawler
 
 
 
