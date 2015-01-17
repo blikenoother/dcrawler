@@ -3,15 +3,16 @@ node-distributed-crawler
 
 Features
 --------------
- * Distributed crawler 
+ * Distributed crawler
  * Configurable url parser and data parser
  * jQuery selector using [cheerio](httphttps://github.com/cheeriojs/cheerio)
  * Parsed data insertion in [Mongodb](https://github.com/mongodb/node-mongodb-native) collection
  * Domain wise interval configuration in distributed enviroment
  * node 0.8+ support
 
+__Note:__ update to latest version (0.0.2+), don't use 0.0.1
 
-Feature suggestion & Forks welcomed!
+Feature suggestion & git Forks welcomed!
 
 
 Installation
