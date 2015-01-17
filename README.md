@@ -10,9 +10,9 @@ Features
  * Domain wise interval configuration in distributed enviroment
  * node 0.8+ support
 
-__Note:__ update to latest version (0.0.2+), don't use 0.0.1
+__Note:__ update to latest version (0.0.4+), don't use 0.0.1
 
-Feature suggestion & git Forks welcomed!
+I am actively updating this library, for any feature suggestion or git fork request are welcomed :)
 
 
 Installation
@@ -32,11 +32,11 @@ var options = {
     mongodbUri:     "mongodb://0.0.0.0:27017/crawler",
     profilePath:    __dirname + "/" + "profile"
 };
-var logOptions = {
-    dbUri:      "mongodb://0.0.0.0:27017/crawler",
+var logs = {
+    dbUri:      "mongodb://0.0.0.0:27017/crawler-log",
 	storeHost:  true
-}
-var dc = new DCrawler(options, logOptions);
+};
+var dc = new DCrawler(options, logs);
 dc.start();
 ```
 

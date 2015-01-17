@@ -1,46 +1,51 @@
 {
-    "name": "dcrawler",
-    "version": "0.0.3",
-    "description": "DCrawler is a distribited web spider written in Nodejs and queued with Mongodb. It gives you the full power of jQuery to parse big pages as they are downloaded, asynchronously. Simplifying distributed crawler!",
-    "keywords": [
-        "distribited",
-        "crawling",
-        "spider",
-        "scraper",
-        "scraping",
-        "jquery",
-        "crawler"
-    ],
-    "maintainers": [
-        {
-            "name": "Chirag J Patel",
-            "email": "blikenoother@gmail.com"
-        }
-    ],
-    "bugs": {
-        "url": "https://github.com/blikenoother/dcrawler/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/blikenoother/dcrawler.git"
-    },
-    "dependencies": {
-        "winston": "0.8.1",
-        "winston-mongodb": "0.5.2",
-        "async": "0.9.0",
-        "mongodb": "1.4.19",
-        "buffer-crc32": "0.2.3",
-        "request": "2.45.0",
-        "cheerio": "0.17.0",
-        "lodash": "2.4.1",
-        "winston": "*",
-        "winston-mongodb": "*"
-    },
-    "engines": [
-        "node>=0.8.x"
-    ],
-    "directories": {
-        "lib": "lib"
-    },
-    "main": "./lib/dcrawler"
+  "name": "dcrawler",
+  "version": "0.0.4",
+  "description": "DCrawler is a distribited web spider written in Nodejs and queued with Mongodb. It gives you the full power of jQuery to parse big pages as they are downloaded, asynchronously. Simplifying distributed crawler!",
+  "keywords": [
+    "distribited",
+    "crawling",
+    "spider",
+    "scraper",
+    "scraping",
+    "jquery",
+    "crawler"
+  ],
+  "maintainers": [
+    {
+      "name": "Chirag J Patel",
+      "email": "blikenoother@gmail.com"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/blikenoother/dcrawler/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blikenoother/dcrawler.git"
+  },
+  "dependencies": {
+    "winston": "*",
+    "winston-mongodb": "*",
+    "async": "0.9.0",
+    "mongodb": "1.4.19",
+    "buffer-crc32": "0.2.3",
+    "request": "2.45.0",
+    "cheerio": "0.17.0",
+    "lodash": "2.4.1"
+  },
+  "engines": [
+    "node>=0.8.x"
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "main": "./lib/dcrawler",
+  "readme": "node-distributed-crawler\n========\n\nFeatures\n--------------\n * Configurable url parser and data parser\n * jQuery selector using [cheerio](httphttps://github.com/cheeriojs/cheerio)\n * Parsed data insertion in [Mongodb](https://github.com/mongodb/node-mongodb-native) collection\n * Domain wise interval configuration in distributed enviroment\n * node 0.8+ support\n\n\nFeature suggestion & Forks welcomed!\n\n\nInstallation\n--------------\n\n    $ npm install git+https://github.com/blikenoother/dcrawler.git\n\n\n\nUsage\n------------\n\n```javascript\nvar DCrawler = require(\"dcrawler\");\n\nvar options = {\n    mongodbUri:     \"mongodb://localhost:27017/crawler\",\n    profilePath:    __dirname + \"/\" + \"profile\"\n};\nvar logOptions = {\n    dbUri:      \"mongodb://localhost:27017/crawler\",\n\tstoreHost:  true\n}\nvar dc = new DCrawler(options, logOptions);\ndc.start();\n```\n\nThe DCrawler takes options and log options construcotr:\n1. __options__ with following porperties __*__:\n  * __mongodbUri:__ Mongodb connection uri (Eg: 'mongodb://0.0.0.0:27017/crawler') __*__\n  * __profilePath:__ Location of profile directory which contains config files. (Eg: /home/crawler/profile) __*__\n\n2. __logOptions__ to store logs in centrelized location using [winston-mongodb](https://github.com/indexzero/winston-mongodb#usage) with following porperties:\n  * __dbUri:__ Mongodb connection uri (Eg: 'mongodb://0.0.0.0:27017/crawler')\n  * __storeHost:__ Boolean, true or false to store workers host name or not in log collection.\n\n  __Note:__ logOptions is required when you want to store centralize logs in mongodb, if you don't want to store logs no need to pass logOptions variable in DCrawler constructor\n  ```javascript\n  var dc = new DCrawler(options);\n  ```\n\nCreate __config file__ for each domain inside profilePath directory. Check example profile [example.com](https://github.com/blikenoother/dcrawler/blob/master/sample_profile/example.js), contains config with following porperties:\n* __collection:__ Name on collection to store parsed data in mongodb. (Eg: 'products') __*__\n* __url:__ Url to start crawling. String or Array of url. (Eg: 'http://example.com' or ['http://example.com']) __*__\n* __interval:__ Interval between request in miliseconds. Default is `1000` (Eg: For 2 secods interval: `2000`)\n* __followUrl:__ Boolean, true or false to fetch further url from the crawled page and crawl that url as well.\n* __resume:__ Boolean, true or false to resume crawling from previous crawled data.\n* __beforeStart:__ Function to execute before start crawling. Function has config param which contains perticular profile config object. Example function:\n```javascript\nbeforeStart: function (config) {\n    console.log(\"started crawling example.com\");\n}\n```\n* __parseUrl:__ Function to get further url from crawled page. Function has `error`, `response` object and `$` jQuery object param. Function returns Array of url string. Example function:\n```javascript\nparseUrl: function (error, response, $) {\n    var _url = [];\n    \n    try {\n        $(\"a\").each(function(){\n            var href = $(this).attr(\"href\");\n            if (href && href.indexOf(\"/products\") > -1) {\n                if (href.indexOf(\"http://example.com\") === -1) {\n                    href = \"http://example.com/\" + href;\n                }\n                _url.push(href);\n            }\n        )};\n    } catch (e) {\n        console.log(e);\n    }\n    \n    return _url;\n}\n```\n* __parseData:__ Function to exctract information from crawled page. Function has `error`, `response` object and `$` jQuery object param. Function returns data Object to insert in collection . Example function:\n```javascript\nparseData: function (error, response, $) {\n    var _data = null;\n    \n    try {\n        var _id = $(\"h1#productId\").html();\n        var name = $(\"span#productName\").html();\n        var price = $(\"label#productPrice\").html();\n        var url = response.uri;\n        \n        _data = {\n            _id: _id,\n            name: name,\n            price: price,\n            url: url\n        }\n    } catch (e) {\n        console.log(e);\n    }\n    \n    return _data;\n}\n```\n* __onComplete:__ Function to execute on completing crawling. Function has `config` param which contains perticular profile config object. Example function:\n```javascript\nonComplete: function (config) {\n    console.log(\"completed crawling example.com\");\n}\n```\n\nChirag (blikenoother -[at]- gmail [dot] com)",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/blikenoother/dcrawler",
+  "_id": "dcrawler@0.0.1",
+  "_shasum": "9ee6fdcce1afe76c4c601407f5ae22cac0562a48",
+  "_resolved": "git+https://github.com/blikenoother/dcrawler.git#605be1471f140bba18eac7fdb3221ab15997491b",
+  "_from": "git+https://github.com/blikenoother/dcrawler.git"
 }
