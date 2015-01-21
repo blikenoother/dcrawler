@@ -29,7 +29,7 @@ Usage
 var DCrawler = require("dcrawler");
 
 var options = {
-    mongodbUri:     "mongodb://0.0.0.0:27017/crawler",
+    mongodbUri:     "mongodb://0.0.0.0:27017/crawler-data",
     profilePath:    __dirname + "/" + "profile"
 };
 var logs = {
@@ -40,16 +40,19 @@ var dc = new DCrawler(options, logs);
 dc.start();
 ```
 
+__Note:__ mongodb connection uri (`mongodbUri` & `dbUri`) should be same (queueing of urls should be centeralized)
+
+
 The DCrawler takes options and log options construcotr:
 1. __options__ with following porperties __*__:
   * __mongodbUri:__ Mongodb connection uri (Eg: 'mongodb://0.0.0.0:27017/crawler') __*__
   * __profilePath:__ Location of profile directory which contains config files. (Eg: /home/crawler/profile) __*__
 
-2. __logOptions__ to store logs in centrelized location using [winston-mongodb](https://github.com/indexzero/winston-mongodb#usage) with following porperties:
+2. __logs__ to store logs in centrelized location using [winston-mongodb](https://github.com/indexzero/winston-mongodb#usage) with following porperties:
   * __dbUri:__ Mongodb connection uri (Eg: 'mongodb://0.0.0.0:27017/crawler')
   * __storeHost:__ Boolean, true or false to store workers host name or not in log collection.
 
-  __Note:__ logOptions is required when you want to store centralize logs in mongodb, if you don't want to store logs no need to pass logOptions variable in DCrawler constructor
+  __Note:__ `logs` is required when you want to store centralize logs in mongodb, if you don't want to store logs no need to pass logOptions variable in DCrawler constructor
   ```javascript
   var dc = new DCrawler(options);
   ```

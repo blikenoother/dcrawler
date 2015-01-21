@@ -1,6 +1,6 @@
 {
   "name": "dcrawler",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "DCrawler is a distribited web spider written in Nodejs and queued with Mongodb. It gives you the full power of jQuery to parse big pages as they are downloaded, asynchronously. Simplifying distributed crawler!",
   "keywords": [
     "distribited",
